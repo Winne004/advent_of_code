@@ -1,5 +1,5 @@
 import unittest
-from day_1.day_1 import find_first_and_last_int
+from day_1.day_1 import find_first_and_last_int, main
 
 
 class TestFindFirstAndLastInt(unittest.TestCase):
@@ -11,6 +11,9 @@ class TestFindFirstAndLastInt(unittest.TestCase):
 
     def test_no_digit_input(self):
         self.assertEqual(find_first_and_last_int("abc"), 0)
+
+    def test_main(self):
+        self.assertEqual(main(),53386)
 
 
 if __name__ == "__main__":
