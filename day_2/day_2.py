@@ -50,10 +50,14 @@ def get_stones_in_game(game_record):
 
 
 def is_game_valid(id_, stones_in_game):
-    for colour_count_dict in stones_in_game:
-        if not GemsPossible.do_number_of_gems_exceed_allowed_values(colour_count_dict):
-            return 0
-    return id_
+    return (
+        id_
+        if all(
+            GemsPossible.do_number_of_gems_exceed_allowed_values(color_counts)
+            for color_counts in stones_in_game
+        )
+        else 0
+    )
 
 
 def get_min_values(stones_in_game):
