@@ -11,6 +11,14 @@ class FindNumbersAsStrings:
         "eight": 8,
         "nine": 9,
     }
+
+    def replace_words_with_numbers(self, code):
+        code_list = list(code)
+        for k, v in self.numbers_as_words.items():
+            for x in yield_find(code, k):
+                code_list[x] = str(v)
+
+        return "".join(code_list)
 def find_first_and_last_int(code: str) -> int:
     list_of_numbers = [char for char in code if char.isdigit()]
     return (
