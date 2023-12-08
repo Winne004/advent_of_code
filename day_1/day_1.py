@@ -19,6 +19,20 @@ class FindNumbersAsStrings:
                 code_list[x] = str(v)
 
         return "".join(code_list)
+
+
+def yield_find(to_search, k):
+    start_search = 0
+    while to_search.find(k, start_search) != -1:
+        loc = to_search.find(k, start_search)
+
+        yield loc
+        
+        start_search = loc + 1
+
+    return False
+
+
 def find_first_and_last_int(code: str) -> int:
     list_of_numbers = [char for char in code if char.isdigit()]
     return (
