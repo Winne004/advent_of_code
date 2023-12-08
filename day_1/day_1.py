@@ -43,15 +43,17 @@ def find_first_and_last_int(code: str) -> int:
 
 
 def main():
-    filepath = "day_1/input.txt"
-    calibration_document = open(filepath, "r")
+    filepath = "./day_1/input.txt"
+    with open(filepath, "r", encoding="utf-8") as calibration_document:
+        res = 0
+        for line in calibration_document:
+            line = line.strip()
+            line = FindNumbersAsStrings().replace_words_with_numbers(line)
 
-    res = 0
-    for line in calibration_document:
-        res += find_first_and_last_int(line)
+            res += find_first_and_last_int(line)
 
-    return res
+        return res
 
 
 if __name__ == "__main__":
-    main()
+    print(main())
