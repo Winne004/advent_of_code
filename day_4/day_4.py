@@ -42,15 +42,11 @@ class WinningCardsCounter:
         self.res = 0
 
     def increment_winning_card_count(self, card_number, number_of_matches):
-        while self.number_of_winning_card[card_number] > 0:
+        while self.number_of_winning_card[card_number] >= 0:
             for x in range(card_number + 1, card_number + number_of_matches + 1, 1):
                 self.number_of_winning_card[x] += 1
             self.res += 1
             self.number_of_winning_card[card_number] -= 1
-
-    def count(self, cards):
-        for card in cards:
-            self.number_of_winning_card[card.card_number] += 1
 
 
 def get_card_number(line):
@@ -84,7 +80,6 @@ def main():
     with open(filepath, "r", encoding="utf-8") as f:
         listify_input(f, cards)
 
-    winning_card_counter.count(cards=cards.collection)
     res = 0
     for card in cards.collection:
         res += card.shared_values
