@@ -5,8 +5,8 @@ from collections import Counter
 @dataclass
 class Card:
     card_number: int
-    first_half: list
-    second_half: list
+    first_half: Counter
+    second_half: Counter
 
     def __post_init__(self):
         self.card_number = int(self.card_number)
@@ -49,13 +49,13 @@ class WinningCardsCounter:
             self.number_of_winning_card[card_number] -= 1
 
 
-def get_card_number(line):
+def parse_card_number_from_input(line):
     line = line.split(":")[0]
     line = line.split(" ")[-1]
     return line
 
 
-def get_games(line):
+def parse_games_from_input(line):
     games = line.split(":")[-1]
     first_game, second_game = games.split("|")
     return [score.strip() for score in first_game.split(" ") if score != ""], [
@@ -63,11 +63,11 @@ def get_games(line):
     ]
 
 
-def listify_input(f, cards):
+def process_input(f, cards):
     scratchcards = f.read().split("\n")
     for scratchcard in scratchcards:
-        cardnumber = get_card_number(scratchcard)
-        first_game, second_game = get_games(scratchcard)
+        cardnumber = parse_card_number_from_input(scratchcard)
+        first_game, second_game = parse_games_from_input(scratchcard)
         cards.add_card_to_collection(cardnumber, first_game, second_game)
     return scratchcards
 
@@ -78,7 +78,7 @@ def main():
     winning_card_counter = WinningCardsCounter()
 
     with open(filepath, "r", encoding="utf-8") as f:
-        listify_input(f, cards)
+        process_input(f, cards)
 
     res = 0
     for card in cards.collection:
@@ -86,6 +86,7 @@ def main():
         winning_card_counter.increment_winning_card_count(
             card.card_number, card.number_of_keys
         )
+
     return res, winning_card_counter.res
 
 
