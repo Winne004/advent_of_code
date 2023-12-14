@@ -34,7 +34,7 @@ def process_input(f):
     return almanac
 
 
-def x_to_y(step, m) -> int:
+def in_range(step, m) -> int:
     for destination_range_start, source_range_start, range_length in m:
         if step >= source_range_start and step < source_range_start + range_length:
             step = destination_range_start + (step - source_range_start)
@@ -55,7 +55,7 @@ def main():
         for seed in seedss:
             for almnac in parsed_almnacs.values():
                 for mappings in almnac:
-                    seed = x_to_y(int(seed), mappings)
+                    seed = in_range(int(seed), mappings)
             r = min(r, seed)
     print(r)
 
